@@ -1,7 +1,11 @@
-<nav class="site-nav">
+<nav class="site-nav" aria-label="Ana menü">
   <ul>
   {% for item in site.nav %}
-    <li><a href="{{ item.url | relative_url }}">{{ item.title }}</a></li>
+    {% assign is_active = false %}
+    {% if page.url == item.url or page.url == item.url | append: '/' %}
+      {% assign is_active = true %}
+    {% endif %}
+    <li class="{% if is_active %}active{% endif %}"><a href="{{ item.url | relative_url }}">{{ item.title }}</a></li>
   {% endfor %}
   </ul>
 </nav>
