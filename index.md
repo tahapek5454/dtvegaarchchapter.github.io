@@ -38,20 +38,23 @@ Kısa özetler:
 
 ## Etiket (Tag) Rehberi
 <div class="tag-legend">
-
-| Etiket | Açıklama |
-|-------|----------|
-| microservices | Servisler arası iletişim ve dağıtık yapı örnekleri |
-| ddd | Domain Driven Design kavramları |
-| devops | CI/CD, operasyon, otomasyon |
-| observability | Monitoring, logging, tracing |
-| architecture | Genel mimari pattern ve kararlar |
-| game | Oyun geliştirme içerikleri |
-| go | Go ile yazılmış örnek |
-| rust | Rust ile yazılmış örnek |
-| ai | Yapay zeka / ML çalışmaları |
-| system-design | Büyük ölçek sistem tasarımı |
-
+<table>
+  <thead>
+    <tr><th>Etiket</th><th>Açıklama</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>microservices</td><td>Servisler arası iletişim ve dağıtık yapı örnekleri</td></tr>
+    <tr><td>ddd</td><td>Domain Driven Design kavramları</td></tr>
+    <tr><td>devops</td><td>CI/CD, operasyon, otomasyon</td></tr>
+    <tr><td>observability</td><td>Monitoring, logging, tracing</td></tr>
+    <tr><td>architecture</td><td>Genel mimari pattern ve kararlar</td></tr>
+    <tr><td>game</td><td>Oyun geliştirme içerikleri</td></tr>
+    <tr><td>go</td><td>Go ile yazılmış örnek</td></tr>
+    <tr><td>rust</td><td>Rust ile yazılmış örnek</td></tr>
+    <tr><td>ai</td><td>Yapay zeka / ML çalışmaları</td></tr>
+    <tr><td>system-design</td><td>Büyük ölçek sistem tasarımı</td></tr>
+  </tbody>
+</table>
 </div>
 
 ## Hızlı Başlangıç
