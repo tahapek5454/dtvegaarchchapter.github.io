@@ -41,6 +41,12 @@
   .site-nav a { padding:.55rem .85rem .7rem; font-size:1rem; }
 }
 
+/* Nav size bump */
+.site-nav a { font-size:1.12rem; }
+@media (max-width:680px){
+  .site-nav a { font-size:1.05rem; }
+}
+
 /* Tag legend table styling fix */
 .tag-legend { margin:1rem 0 2rem; overflow-x:auto; }
 .tag-legend table { min-width:420px; }
@@ -102,4 +108,4 @@
 a + .tag { margin-left:.6rem; }
 
 /* Tag compact size override */
-.tag { padding:.15rem .45rem .2rem; font-size:.55rem; letter-spacing:.4px; margin:0 .18rem .3rem 0; }
+.tag { padding:.18rem .5rem .25rem; font-size:.6rem; letter-spacing:.45px; margin:0 .18rem .32rem 0; }
