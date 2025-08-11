@@ -2,17 +2,23 @@
 ---
 @import "jekyll-theme-slate";
 
-/* Enhanced navigation styling integrated with Slate */
-.site-nav { margin-top: 1.2rem; }
-.site-nav ul { list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:.5rem .75rem; }
+/* Refined navigation styling */
+.site-nav { margin-top:1.4rem; display:flex; justify-content:center; }
+.site-nav ul { list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:0; }
 .site-nav li { margin:0; }
-/* UPDATED COLORS for higher contrast */
-.site-nav a { display:block; padding:.55rem 1.05rem; border:1px solid #0a5d85; border-radius:26px; background:#0f7fb6; /* accent */ color:#fff; font-size:.95rem; font-weight:600; line-height:1; text-shadow:0 1px 1px rgba(0,0,0,.35); box-shadow:0 1px 0 rgba(255,255,255,0.08) inset, 0 2px 4px rgba(0,0,0,0.35); transition:background .18s ease, transform .18s ease; }
-.site-nav a:hover { background:#0d72a4; text-decoration:none; }
-.site-nav a:active { background:#0b6794; transform:translateY(1px); }
-.site-nav a:focus { outline:2px solid #fff; outline-offset:2px; }
-.site-nav li.active a { background:#095b82; border-color:#095b82; }
-@media (max-width: 640px) { .site-nav a { font-size:.88rem; padding:.5rem .85rem; } }
+.site-nav a { position:relative; display:block; padding:.65rem 1.05rem .85rem; color:#eef5f9; font-size:.92rem; font-weight:600; letter-spacing:.4px; text-decoration:none; border:none; background:transparent; border-radius:0; transition:color .25s ease; }
+.site-nav a:hover { color:#fff; }
+/* Underline accent */
+.site-nav a::after { content:""; position:absolute; left:50%; bottom:.35rem; width:0; height:2px; background:#16a3e6; border-radius:2px; transition:width .25s ease,left .25s ease; }
+.site-nav a:hover::after { width:70%; left:15%; }
+.site-nav li.active a { color:#fff; }
+.site-nav li.active a::after { width:70%; left:15%; background:#0d82b6; }
+/* Focus accessibility */
+.site-nav a:focus-visible { outline:2px solid #16a3e6; outline-offset:2px; }
+@media (max-width:680px){
+  .site-nav { justify-content:flex-start; }
+  .site-nav a { padding:.55rem .85rem .7rem; font-size:.9rem; }
+}
 
 /* Page layout tweaks */
 .page header h1 { margin-top:0; }
