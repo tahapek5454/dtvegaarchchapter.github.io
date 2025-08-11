@@ -100,3 +100,6 @@
 .tag { margin:0 .25rem .35rem 0; }
 /* More space between link text and first tag following it */
 a + .tag { margin-left:.6rem; }
+
+/* Tag compact size override */
+.tag { padding:.15rem .45rem .2rem; font-size:.55rem; letter-spacing:.4px; margin:0 .18rem .3rem 0; }
