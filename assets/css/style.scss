@@ -11,15 +11,18 @@
   --color-border-strong:#455967;
   --color-text:#e4ebef;
   --color-text-muted:#c2ccd1; /* slightly lighter for dark bg */
-  --color-link:#4cc3ff;          /* base link (AA on dark) */
-  --color-link-hover:#8fe2ff;    /* hover/focus */
-  --color-link-active:#ffffff;   /* active/pressed */
-  --color-link-visited:#c7b4ff;  /* visited */
+  --color-link:#4cc3ff;          /* base link (AA on dark surfaces) */
+  --color-link-hover:#008cce;    /* adjust for light bg contrast */
+  --color-link-active:#005d86;   /* active/pressed */
+  --color-link-visited:#5b3fb3;  /* visited (darker for light bg) */
   --color-focus:#16a3e6;         /* focus / nav underline */
   --color-focus-alt:#0d82b6;     /* active nav underline */
 }
 
-body { color:var(--color-text); }
+/* Remove previously set light text on light background causing low contrast */
+/* body { color:var(--color-text); } */
+/* Keep default theme body text color; explicitly set page content to dark readable tone */
+.page { color:#222; }
 
 /* Refined navigation styling */
 .site-nav { margin-top:1.4rem; display:flex; justify-content:center; }
