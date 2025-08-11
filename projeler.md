@@ -37,26 +37,4 @@ Mini oyun prototipleri ve dil pratikleri.
 - [Long Running Request Messages](https://github.com/DTVegaArchChapter/LongRunningExternalRequestMessaging) <span class="tag tag-architecture">architecture</span> <span class="tag tag-microservices">microservices</span>
 - [Software Architect Learning Path](https://github.com/DTVegaArchChapter/SoftwareArchitectLearningPath) <span class="tag tag-learning">learning</span>
 
-### Etiket (Tag) Tablosu
-<div class="tag-legend">
-<table>
-  <thead>
-    <tr><th>Etiket</th><th>Açıklama</th></tr>
-  </thead>
-  <tbody>
-    <tr><td>microservices</td><td>Servis tabanlı mimari</td></tr>
-    <tr><td>ddd</td><td>Domain driven design</td></tr>
-    <tr><td>architecture</td><td>Genel mimari/pattern</td></tr>
-    <tr><td>event</td><td>Mesajlaşma / event driven</td></tr>
-    <tr><td>devops</td><td>Operasyon & otomasyon</td></tr>
-    <tr><td>observability</td><td>Monitoring/logging/tracing</td></tr>
-    <tr><td>game</td><td>Oyun projeleri</td></tr>
-    <tr><td>go</td><td>Go ile geliştirilmiş</td></tr>
-    <tr><td>rust</td><td>Rust ile geliştirilmiş</td></tr>
-    <tr><td>learning</td><td>Öğrenme yolu / rehber</td></tr>
-    <tr><td>ai</td><td>Yapay zeka / ML (ileride)</td></tr>
-  </tbody>
-</table>
-</div>
-
 Daha fazla repo: [Tüm Repositories](https://github.com/orgs/DTVegaArchChapter/repositories)
