@@ -27,7 +27,7 @@
 .site-nav { margin-top:1.4rem; display:flex; justify-content:center; }
 .site-nav ul { list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:0; }
 .site-nav li { margin:0; }
-.site-nav a { position:relative; display:block; padding:.65rem 1.05rem .85rem; color:var(--color-text); font-size:.92rem; font-weight:600; letter-spacing:.4px; text-decoration:none; border:none; background:transparent; border-radius:0; transition:color .25s ease; }
+.site-nav a { position:relative; display:block; padding:.65rem 1.05rem .85rem; color:var(--color-text); font-size:1.05rem; font-weight:600; letter-spacing:.4px; text-decoration:none; border:none; background:transparent; border-radius:0; transition:color .25s ease; }
 .site-nav a:hover { color:#fff; }
 /* Underline accent */
 .site-nav a::after { content:""; position:absolute; left:50%; bottom:.35rem; width:0; height:2px; background:var(--color-focus); border-radius:2px; transition:width .25s ease,left .25s ease; }
@@ -38,7 +38,7 @@
 .site-nav a:focus-visible { outline:2px solid var(--color-focus); outline-offset:2px; }
 @media (max-width:680px){
   .site-nav { justify-content:flex-start; }
-  .site-nav a { padding:.55rem .85rem .7rem; font-size:.9rem; }
+  .site-nav a { padding:.55rem .85rem .7rem; font-size:1rem; }
 }
 
 /* Tag legend table styling fix */
