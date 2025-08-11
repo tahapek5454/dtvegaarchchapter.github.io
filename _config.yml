@@ -32,11 +32,11 @@ collections: {}
 nav:
   - title: Ana Sayfa
     url: /
-  - title: Hakkımızda
-    url: /hakkimizda
   - title: Projeler
     url: /projeler
   - title: Blog
     url: /blog
+  - title: Hakkımızda
+    url: /hakkimizda
   - title: Katkıda Bulun
     url: /katki
