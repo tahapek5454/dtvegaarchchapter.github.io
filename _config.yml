@@ -1,0 +1,40 @@
+title: "DT Vega Architecture Chapter"
+description: "Yazılım mimarileri, DevOps, oyun programlama, yapay zeka ve sistem tasarımı alanlarında açık kaynak örnek projeler."
+lang: tr-TR
+url: https://dtvegaarchchapter.github.io
+baseurl: ""
+# Jekyll GitHub Pages theme
+theme: jekyll-theme-slate
+# Site settings
+show_downloads: false
+github_username: DTVegaArchChapter
+# Build settings
+markdown: kramdown
+kramdown:
+  input: GFM
+plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-feed
+
+# SEO / sosyal
+author: "DT Vega Architecture Chapter"
+logo: /assets/img/logo.png
+social:
+  name: DT Vega Architecture Chapter
+  links:
+    - https://github.com/DTVegaArchChapter
+
+# Koleksiyonlar ileride eklenebilir
+collections: {}
+
+# Navigasyon (elle kullanılacak)
+nav:
+  - title: Ana Sayfa
+    url: /
+  - title: Hakkımızda
+    url: /hakkimizda
+  - title: Projeler
+    url: /projeler
+  - title: Katkıda Bulun
+    url: /katki
