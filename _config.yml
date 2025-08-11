@@ -36,5 +36,7 @@ nav:
     url: /hakkimizda
   - title: Projeler
     url: /projeler
+  - title: Blog
+    url: /blog
   - title: Katkıda Bulun
     url: /katki
