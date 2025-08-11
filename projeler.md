@@ -4,7 +4,6 @@ title: Projeler
 permalink: /projeler
 ---
 
-# Projeler
 Aşağıda organizasyon altındaki bazı örnek depolar kategorilere göre listelenmiştir.
 
 ## Architecture

@@ -4,7 +4,6 @@ title: Katkıda Bulun
 permalink: /katki
 ---
 
-# Katkıda Bulun
 Projelerimize katkı sağlamak için aşağıdaki adımları izleyebilirsiniz.
 
 1. İlginizi çeken bir depo seçin.
