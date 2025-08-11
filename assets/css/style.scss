@@ -83,7 +83,7 @@
 .page a { color:var(--color-link); text-decoration:underline; text-decoration-thickness:1.5px; text-underline-offset:2px; transition:color .18s ease, text-decoration-color .18s ease; }
 .page a:hover, .page a:focus { color:var(--color-link-hover); }
 .page a:active { color:var(--color-link-active); }
-.page a:visited { color:var(--color-link-visited); }
+.page a:visited { color:var(--color-link); }
 .page a:focus-visible { outline:2px solid var(--color-focus); outline-offset:3px; }
 /* Remove previous dashed underline overrides */
 /* (Old .page ul li a rules removed) */
