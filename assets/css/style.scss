@@ -1,0 +1,8 @@
+---
+# Front matter Jekyll'in SCSS derlemesini tetikler
+---
+@import "{{ site.theme }}";
+
+/* Özel stil ekleri */
+.site-nav ul {list-style:none; margin:0; padding:0; display:flex; gap:1rem;}
+.site-nav a {text-decoration:none;}
