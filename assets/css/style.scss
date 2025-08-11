@@ -95,3 +95,8 @@
 /* Page layout tweaks */
 .page header h1 { margin-top:0; }
 .page .page-content { margin-top:1rem; }
+
+/* Tag spacing adjustments */
+.tag { margin:0 .25rem .35rem 0; }
+/* More space between link text and first tag following it */
+a + .tag { margin-left:.6rem; }
