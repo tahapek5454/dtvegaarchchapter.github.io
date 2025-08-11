@@ -37,6 +37,8 @@ Kısa özetler:
 - <strong>System Design:</strong> Ölçeklenebilirlik ve performans senaryoları.
 
 ## Etiket (Tag) Rehberi
+<div class="tag-legend">
+
 | Etiket | Açıklama |
 |-------|----------|
 | microservices | Servisler arası iletişim ve dağıtık yapı örnekleri |
@@ -49,6 +51,8 @@ Kısa özetler:
 | rust | Rust ile yazılmış örnek |
 | ai | Yapay zeka / ML çalışmaları |
 | system-design | Büyük ölçek sistem tasarımı |
+
+</div>
 
 ## Hızlı Başlangıç
 Topluluğa katkı sağlamak için depolardaki README dosyalarını inceleyin ve issue açarak başlayın.

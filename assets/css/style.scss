@@ -20,6 +20,12 @@
   .site-nav a { padding:.55rem .85rem .7rem; font-size:.9rem; }
 }
 
+/* Tag legend table styling fix */
+.tag-legend { margin:1rem 0 2rem; overflow-x:auto; }
+.tag-legend table { min-width:420px; }
+.tag-legend table th, .tag-legend table td { white-space:nowrap; }
+.tag-legend table th { text-align:left; }
+
 /* Featured project cards */
 .featured-grid { display:grid; gap:1rem; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); margin:1.2rem 0 2rem; }
 .featured-grid .card { background:#24313b; border:1px solid #33444f; border-radius:8px; padding:1rem 1rem .9rem; box-shadow:0 2px 4px rgba(0,0,0,.3); }

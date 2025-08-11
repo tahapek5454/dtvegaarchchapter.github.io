@@ -38,6 +38,8 @@ Mini oyun prototipleri ve dil pratikleri.
 - [Software Architect Learning Path](https://github.com/DTVegaArchChapter/SoftwareArchitectLearningPath) <span class="tag tag-learning">learning</span>
 
 ### Etiket (Tag) Tablosu
+<div class="tag-legend">
+
 | Etiket | Açıklama |
 |-------|----------|
 | microservices | Servis tabanlı mimari |
@@ -51,5 +53,7 @@ Mini oyun prototipleri ve dil pratikleri.
 | rust | Rust ile geliştirilmiş |
 | learning | Öğrenme yolu / rehber |
 | ai | Yapay zeka / ML (ileride) |
+
+</div>
 
 Daha fazla repo: [Tüm Repositories](https://github.com/orgs/DTVegaArchChapter/repositories)
