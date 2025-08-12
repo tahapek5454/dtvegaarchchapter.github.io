@@ -106,3 +106,5 @@ projects:
     tags: [system-design, messaging, resiliency]
     featured: false
     order: 9
+
+excerpt_separator: "<!--more-->"
