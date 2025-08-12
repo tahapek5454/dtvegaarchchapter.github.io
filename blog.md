@@ -16,14 +16,7 @@ Bu alanda teknik notlar, mimari karar kayıtları (ADR) ve kısa öğretici yaz�
 
 ## Son Yazılar
 
-{% for post in site.posts %}
-
-### {{ post.date | date: "%Y-%m-%d" }} - [{{ post.title }}]({{ post.url | relative_url }}){% if post.tags %} • {{ post.tags | join: ", " }}{% endif %}
-
-{{ post.excerpt | strip_html | truncate: 180 }}
-
----
-{% endfor %}
+{% include post-list.html %}
 
 ## ADR (Architecture Decision Records)
 
