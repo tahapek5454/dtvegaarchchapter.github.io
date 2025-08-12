@@ -40,3 +40,69 @@ nav:
     url: /hakkimizda
   - title: Katkıda Bulun
     url: /katki
+
+# Proje verileri (include ile kullanılır)
+projects:
+  - name: Architecture
+    repo: Architecture
+    url: https://github.com/DTVegaArchChapter/Architecture
+    description: Mikroservis, DDD, Event-Driven, entegrasyon ve pattern örnekleri.
+    tags: [microservices, ddd, architecture]
+    featured: true
+    order: 1
+  - name: DevOps
+    repo: DevOps
+    url: https://github.com/DTVegaArchChapter/DevOps
+    description: Monitoring, logging, alerting, gözlemlenebilirlik demo kurulumları.
+    tags: [devops, observability]
+    featured: true
+    order: 2
+  - name: GameProgramming
+    repo: GameProgramming
+    url: https://github.com/DTVegaArchChapter/GameProgramming
+    description: Go & Rust ile oyun geliştirme deneysel mini projeleri.
+    tags: [game, go, rust]
+    featured: true
+    order: 3
+  - name: AI
+    repo: AI
+    url: https://github.com/DTVegaArchChapter/AI
+    description: Yapay zeka konularını öğrenmek için örnekler, modeller ve rehberler.
+    tags: [ai, ml, experiments]
+    featured: false
+    order: 4
+  - name: SystemDesign
+    repo: SystemDesign
+    url: https://github.com/DTVegaArchChapter/SystemDesign
+    description: Ölçeklenebilir sistem tasarımı, kapasite ve performans senaryoları.
+    tags: [system-design, scalability, performance]
+    featured: false
+    order: 5
+  - name: CoinBazaar
+    repo: CoinBazaar
+    url: https://github.com/DTVegaArchChapter/CoinBazaar
+    description: Popüler pattern ve framework entegrasyonlarını birleştiren örnek platform.
+    tags: [architecture, patterns, integration]
+    featured: false
+    order: 6
+  - name: SoftwareArchitectLearningPath
+    repo: SoftwareArchitectLearningPath
+    url: https://github.com/DTVegaArchChapter/SoftwareArchitectLearningPath
+    description: Yazılım Mimarı öğrenim yolu dokümanı.
+    tags: [learning, architecture, roadmap]
+    featured: false
+    order: 7
+  - name: PersonnelMongoDb
+    repo: PersonnelMongoDb
+    url: https://github.com/DTVegaArchChapter/PersonnelMongoDb
+    description: MongoDB ile personel yönetimi CRUD örneği.
+    tags: [mongodb, crud, csharp]
+    featured: false
+    order: 8
+  - name: LongRunningExternalRequestMessaging
+    repo: LongRunningExternalRequestMessaging
+    url: https://github.com/DTVegaArchChapter/LongRunningExternalRequestMessaging
+    description: Uzun süren HTTP isteklerini asenkronlaştıran messaging tabanlı tasarım.
+    tags: [system-design, messaging, resiliency]
+    featured: false
+    order: 9
