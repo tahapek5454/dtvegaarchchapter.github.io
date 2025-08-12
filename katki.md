@@ -12,9 +12,11 @@ Projelerimize katkı sağlamak için aşağıdaki adımları izleyebilirsiniz.
 4. Fork + branch oluşturup pull request gönderin.
 
 ## Rehberler
+
 - Anlamlı commit mesajları yazın.
 - Küçük ve odaklı pull request gönderin.
 - Kod içinde gerekli görülen yerlerde açıklayıcı yorumlar ekleyin.
 
 ## İletişim
+
 Soru ve öneriler için GitHub issues kullanabilirsiniz.

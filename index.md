@@ -5,8 +5,6 @@ title: Ana Sayfa
 
 # DT Vega Architecture Chapter
 
-Hoş geldiniz. Bu site GitHub Pages üzerinde jekyll-theme-slate teması ile yayınlanmaktadır.
-
 Yazılım mimarileri, DevOps, oyun programlama, yapay zeka ve sistem tasarımı alanlarında deneyimlerimizi açık kaynak projelerle paylaşıyoruz.
 
 ## Öne Çıkan Projeler
