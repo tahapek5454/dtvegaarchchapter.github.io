@@ -25,11 +25,13 @@
 
 #header_wrap .inner {
   padding: 25px 10px 5px 10px;
+  text-align:left;
 }
 
 #project_tagline {
   padding-bottom: 0;
   margin: 0, 0;
+  text-align:left;
 }
 
 #main_content {
@@ -66,9 +68,9 @@
 .featured-grid .card { background:var(--color-surface-elevated); border:1px solid var(--color-border-strong); border-radius:10px; padding:1rem 1rem .95rem; box-shadow:0 3px 6px rgba(0,0,0,.35); color:var(--color-text); line-height:1.35; }
 .featured-grid .card h3 { margin-top:0; font-size:1.08rem; letter-spacing:.3px; color:var(--color-link); }
 .featured-grid .card h3, .featured-grid .card h3 a { color:var(--color-link); text-decoration:none; }
-.featured-grid .card h3 a:hover, .featured-grid .card h3 a:focus { color:var(--color-link-hover); text-decoration:underline; }
+.featured-grid .card h3 a:hover, .featured-grid .card h3 a:focus { color:var(--color-link); text-decoration:none; }
 .featured-grid .card:hover h3,
-.featured-grid .card:focus-within h3 { color:var(--color-link-hover); text-decoration:underline; }
+.featured-grid .card:focus-within h3 { color:var(--color-link); text-decoration: none; }
 .featured-grid .card p { margin:.5rem 0 .7rem; font-size:.83rem; line-height:1.4; color:var(--color-text-muted); }
 .featured-grid .card:focus-within { outline:2px solid var(--color-focus); outline-offset:2px; }
 .featured-grid .tags { margin-top:.35rem; }
@@ -124,3 +126,8 @@ a + .tag { margin-left:.6rem; }
 
 /* Tag compact size override */
 .tag { padding:.18rem .5rem .25rem; font-size:.6rem; letter-spacing:.45px; margin:0 .18rem .32rem 0; }
+
+/* Brand row styling */
+.brand-row { display:flex; align-items:center; gap:1rem; justify-content:flex-start; }
+.brand-row .site-logo img { display:block; border-radius:12px; }
+.brand-row #project_title { margin:0; }

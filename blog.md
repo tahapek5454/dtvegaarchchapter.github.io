@@ -14,6 +14,17 @@ Bu alanda teknik notlar, mimari karar kayıtları (ADR) ve kısa öğretici yaz�
 - Go ile Oyun Döngüsü Basit Örneği
 - Olay Tabanlı Entegrasyon Stratejileri
 
+## Son Yazılar
+
+{% for post in site.posts %}
+
+### {{ post.date | date: "%Y-%m-%d" }} - [{{ post.title }}]({{ post.url | relative_url }}){% if post.tags %} • {{ post.tags | join: ", " }}{% endif %}
+
+{{ post.excerpt | strip_html | truncate: 180 }}
+
+---
+{% endfor %}
+
 ## ADR (Architecture Decision Records)
 
 İleride /adr klasörü (ayrı depo veya site içerisi) linkleri burada listelenecek.
