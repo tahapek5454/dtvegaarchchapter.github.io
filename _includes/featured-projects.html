@@ -1,0 +1,18 @@
+<div class="featured-grid">
+  {% assign featured = site.projects | where: "featured", true | sort: "order" %}
+  {% for project in featured %}
+  <a href="{{ project.url }}">
+    <div class="card">
+        <h3><a href="{{ project.url }}">{{ project.name }}</a></h3>
+        <p>{{ project.description }}</p>
+        {% if project.tags %}
+        <p class="tags">
+        {% for tag in project.tags %}
+            <span class="tag tag-{{ tag | slugify }}">{{ tag }}</span>
+        {% endfor %}
+        </p>
+        {% endif %}
+    </div>
+  </a>
+  {% endfor %}
+</div>
