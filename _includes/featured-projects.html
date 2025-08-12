@@ -1,9 +1,8 @@
 <div class="featured-grid">
   {% assign featured = site.projects | where: "featured", true | sort: "order" %}
   {% for project in featured %}
-  <a href="{{ project.url }}">
     <div class="card">
-        <h3><a href="{{ project.url }}">{{ project.name }}</a></h3>
+        <h3>{{ project.name }}</h3>
         <p>{{ project.description }}</p>
         {% if project.tags %}
         <p class="tags">
@@ -12,7 +11,7 @@
         {% endfor %}
         </p>
         {% endif %}
+        <a class="stretched-link" href="{{ project.url }}" aria-label="{{ project.name }} projesine git"></a>
     </div>
-  </a>
   {% endfor %}
 </div>
