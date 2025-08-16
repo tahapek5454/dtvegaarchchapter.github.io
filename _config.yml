@@ -5,9 +5,14 @@ url: https://dtvegaarchchapter.github.io
 baseurl: ""
 # Jekyll GitHub Pages theme
 theme: jekyll-theme-slate
+
 # Site settings
 show_downloads: false
 github_username: DTVegaArchChapter
+
+# Google Analytics
+google_analytics: "G-V66WD07ZKX"
+
 # Build settings
 markdown: kramdown
 kramdown:
@@ -40,3 +45,5 @@ nav:
     url: /hakkimizda
   - title: Katkıda Bulun
     url: /katki
+  - title: İletişim
+    url: /iletisim
