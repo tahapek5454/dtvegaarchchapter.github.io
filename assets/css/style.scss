@@ -23,11 +23,26 @@
 /* Keep default theme body text color; explicitly set page content to dark readable tone */
 .page { color:#222; }
 
+#header_wrap .inner {
+  padding: 25px 10px 5px 10px;
+  text-align:left;
+}
+
+#project_tagline {
+  padding-bottom: 0;
+  margin: 0, 0;
+  text-align:left;
+}
+
+#main_content {
+    padding-top: 20px;
+}
+
 /* Refined navigation styling */
-.site-nav { margin-top:1.4rem; display:flex; justify-content:center; }
+.site-nav { margin-top:1.2rem; display:flex; justify-content:center; }
 .site-nav ul { list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:0; }
 .site-nav li { margin:0; }
-.site-nav a { position:relative; display:block; padding:.65rem 1.05rem .85rem; color:var(--color-text); font-size:1.05rem; font-weight:600; letter-spacing:.4px; text-decoration:none; border:none; background:transparent; border-radius:0; transition:color .25s ease; }
+.site-nav a { position:relative; display:block; padding:.65rem 1.05rem .85rem; color:var(--color-text); font-size:1.12rem; font-weight:600; letter-spacing:.4px; text-decoration:none; border:none; background:transparent; border-radius:0; transition:color .25s ease; }
 .site-nav a:hover { color:#fff; }
 /* Underline accent */
 .site-nav a::after { content:""; position:absolute; left:50%; bottom:.35rem; width:0; height:2px; background:var(--color-focus); border-radius:2px; transition:width .25s ease,left .25s ease; }
@@ -38,13 +53,7 @@
 .site-nav a:focus-visible { outline:2px solid var(--color-focus); outline-offset:2px; }
 @media (max-width:680px){
   .site-nav { justify-content:flex-start; }
-  .site-nav a { padding:.55rem .85rem .7rem; font-size:1rem; }
-}
-
-/* Nav size bump */
-.site-nav a { font-size:1.12rem; }
-@media (max-width:680px){
-  .site-nav a { font-size:1.05rem; }
+  .site-nav a { padding:.55rem .85rem .7rem; font-size:1.05rem; }
 }
 
 /* Tag legend table styling fix */
@@ -55,10 +64,13 @@
 
 /* Featured project cards */
 .featured-grid { display:grid; gap:1rem; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); margin:1.2rem 0 2rem; }
+.featured-grid .card { position:relative; /* enable absolute child link */ }
 .featured-grid .card { background:var(--color-surface-elevated); border:1px solid var(--color-border-strong); border-radius:10px; padding:1rem 1rem .95rem; box-shadow:0 3px 6px rgba(0,0,0,.35); color:var(--color-text); line-height:1.35; }
-.featured-grid .card h3 { margin-top:0; font-size:1.08rem; letter-spacing:.3px; }
+.featured-grid .card h3 { margin-top:0; font-size:1.08rem; letter-spacing:.3px; color:var(--color-link); }
 .featured-grid .card h3, .featured-grid .card h3 a { color:var(--color-link); text-decoration:none; }
-.featured-grid .card h3 a:hover, .featured-grid .card h3 a:focus { color:var(--color-link-hover); text-decoration:underline; }
+.featured-grid .card h3 a:hover, .featured-grid .card h3 a:focus { color:var(--color-link); text-decoration:none; }
+.featured-grid .card:hover h3,
+.featured-grid .card:focus-within h3 { color:var(--color-link); text-decoration: none; }
 .featured-grid .card p { margin:.5rem 0 .7rem; font-size:.83rem; line-height:1.4; color:var(--color-text-muted); }
 .featured-grid .card:focus-within { outline:2px solid var(--color-focus); outline-offset:2px; }
 .featured-grid .tags { margin-top:.35rem; }
@@ -66,6 +78,11 @@
 .featured-grid .card { transition:transform .25s ease, box-shadow .25s ease; }
 .featured-grid .card:hover { transform:translateY(-3px); box-shadow:0 6px 14px -2px rgba(0,0,0,.45); }
 .featured-grid .card:active { transform:translateY(-1px); }
+
+/* Stretched link utility */
+.stretched-link { position:absolute; inset:0; z-index:1; text-indent:-9999px; overflow:hidden; background:transparent; }
+.stretched-link:focus { outline:2px solid var(--color-focus); outline-offset:2px; }
+.featured-grid .card:hover { cursor:pointer; }
 
 /* Tag badges (refined palette for softer contrast) */
 .tag { display:inline-block; padding:.18rem .55rem .25rem; margin:0 .35rem .4rem 0; font-size:.62rem; font-weight:600; letter-spacing:.45px; text-transform:uppercase; border-radius:14px; background:#344752; color:#ecf3f6; line-height:1.05; border:1px solid rgba(255,255,255,.07); position:relative; top:0; transition:background .25s ease, top .18s ease, box-shadow .25s ease; }
@@ -109,3 +126,24 @@ a + .tag { margin-left:.6rem; }
 
 /* Tag compact size override */
 .tag { padding:.18rem .5rem .25rem; font-size:.6rem; letter-spacing:.45px; margin:0 .18rem .32rem 0; }
+
+/* Brand row styling */
+.brand-row { display:flex; align-items:center; gap:1rem; justify-content:flex-start; }
+.brand-row .site-logo img { display:block; border-radius:12px; }
+.brand-row #project_title { margin:0; }
+
+.post-list { display:grid; gap:1.75rem; margin:1.2rem 0 2.4rem; }
+.post-item { position:relative; padding:1rem 1.1rem 1.15rem; background:var(--color-surface-elevated); border:1px solid var(--color-border-strong); border-radius:10px; box-shadow:0 2px 5px rgba(0,0,0,.28); transition:box-shadow .25s ease, transform .25s ease; }
+.post-item:hover { box-shadow:0 6px 14px -2px rgba(0,0,0,.45); transform:translateY(-3px); }
+.post-title { margin:.15rem 0 .35rem; font-size:1.05rem; letter-spacing:.3px; }
+.post-title a { color:var(--color-link); text-decoration:none; }
+.post-title a:hover, .post-title a:focus { color:var(--color-link-hover); text-decoration:underline; }
+.post-meta { display:flex; flex-wrap:wrap; align-items:center; gap:.75rem; font-size:.63rem; letter-spacing:.08em; text-transform:uppercase; margin:.1rem 0 .55rem; color:var(--color-text-muted); }
+.post-date { font-weight:600; }
+.post-tags { list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:.35rem; }
+.post-tags li { margin:0; padding:0; }
+.post-excerpt { margin:.2rem 0 0; font-size:.8rem; line-height:1.45; color:var(--color-text-muted); }
+.post-item:focus-within { outline:2px solid var(--color-focus); outline-offset:3px; }
+@media (min-width:760px){ .post-list { grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); } }
+/* Reuse existing .tag class but allow within list to size slightly bigger */
+.post-tags .tag { font-size:.55rem; padding:.22rem .55rem .28rem; }

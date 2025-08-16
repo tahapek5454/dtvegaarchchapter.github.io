@@ -6,7 +6,12 @@ permalink: /blog
 
 Bu alanda teknik notlar, mimari karar kayıtları (ADR) ve kısa öğretici yazılar yayınlanacaktır.
 
+## Son Yazılar
+
+{% include post-list.html %}
+
 ## Planlanan Başlıklar
+
 - Mimari Karar: Mesaj Kuyruğu Seçimi (RabbitMQ vs Kafka)
 - Observability Minimum Gereksinimleri
 - DDD Aggregate Tasarım İpuçları
@@ -14,6 +19,7 @@ Bu alanda teknik notlar, mimari karar kayıtları (ADR) ve kısa öğretici yaz�
 - Olay Tabanlı Entegrasyon Stratejileri
 
 ## ADR (Architecture Decision Records)
+
 İleride /adr klasörü (ayrı depo veya site içerisi) linkleri burada listelenecek.
 
 > Öneri eklemek için issue açabilirsiniz.
