@@ -71,7 +71,7 @@ Martin Fowler, basit süreçler için Transaction Script ya da Active Record'un 
 - **Specification**: Sorgu ve kural ifadelerini yeniden kullanılabilir kılar.
 
 ## Hızlı Başlangıç
-- Reponun README’sini açın: https://github.com/DTVegaArchChapter/Architecture/tree/main/ddd/goal-management-system#readme
+- Reponun [README](https://github.com/DTVegaArchChapter/Architecture/tree/main/ddd/goal-management-system#readme)’sini açın.
 - Event Storming ve Strategic Design görsellerine göz atın (aşağıdaki başlıklarda).
 - Aggregate’leri (GoalSet, Goal, GoalProgress) ve Value Object’leri inceleyin.
 - “Goal ekle” akışını ve üretilen Domain Event’leri takip edin.
@@ -79,7 +79,7 @@ Martin Fowler, basit süreçler için Transaction Script ya da Active Record'un 
 
 ## Örnek Projemiz: DDD Goal Management (DT Vega Architecture Chapter)
 Açık kaynak örnek proje: Goal Management System (DT Vega Architecture Chapter ekibi tarafından geliştirildi)
-- Repo: https://github.com/DTVegaArchChapter/Architecture/tree/main/ddd/goal-management-system
+- Repo: [https://github.com/DTVegaArchChapter/Architecture/tree/main/ddd/goal-management-system](https://github.com/DTVegaArchChapter/Architecture/tree/main/ddd/goal-management-system)
 - Amaç: Organizasyon, hedef belirleme, ilerleme/onarım-onay akışları ve dönem sonu performans değerlendirme süreçlerini DDD ile modellemek.
 
 ### Event Storming
@@ -103,7 +103,7 @@ Açık kaynak örnek proje: Goal Management System (DT Vega Architecture Chapter
 
 Daha detaylı dokümantasyon için [README](https://github.com/DTVegaArchChapter/Architecture/tree/main/ddd/goal-management-system#readme) dosyasını inceleyebilirsiniz.
 
-Kodları incelemek için [tıklayın](https://github.com/DTVegaArchChapter/Architecture/tree/main/ddd/goal-management-system)
+Kodları incelemek için [tıklayın](https://github.com/DTVegaArchChapter/Architecture/tree/main/ddd/goal-management-system).
 
 ## SSS (DDD Hakkında)
 - DDD (Domain-Driven Design) nedir? İş kurallarını merkeze alan, domain modelini kodla hizalayan bir yazılım tasarım yaklaşımıdır.
@@ -147,8 +147,8 @@ DDD; karmaşık iş kurallarını sürdürülebilir biçimde modellemek için g�
 ## Kaynaklar
 - Eric Evans - Domain-Driven Design (kitap)
 - Vaughn Vernon - Implementing Domain-Driven Design (kitap)
-- Martin Fowler - Anemic Domain Model: https://martinfowler.com/bliki/AnemicDomainModel.html
-- Martin Fowler - Transaction Script: https://martinfowler.com/eaaCatalog/transactionScript.html
-- Martin Fowler - Active Record: https://martinfowler.com/eaaCatalog/activeRecord.html
-- Martin Fowler - Domain Model: https://martinfowler.com/eaaCatalog/domainModel.html
-- DDD Goal Management System (README, diyagramlar ve kodlar): https://github.com/DTVegaArchChapter/Architecture/tree/main/ddd/goal-management-system
+- Martin Fowler - Anemic Domain Model: [https://martinfowler.com/bliki/AnemicDomainModel.html](https://martinfowler.com/bliki/AnemicDomainModel.html)
+- Martin Fowler - Transaction Script: [https://martinfowler.com/eaaCatalog/transactionScript.html](https://martinfowler.com/eaaCatalog/transactionScript.html)
+- Martin Fowler - Active Record: [https://martinfowler.com/eaaCatalog/activeRecord.html](https://martinfowler.com/eaaCatalog/activeRecord.html)
+- Martin Fowler - Domain Model: [https://martinfowler.com/eaaCatalog/domainModel.html](https://martinfowler.com/eaaCatalog/domainModel.html)
+- DDD Goal Management System (README, diyagramlar ve kodlar): [https://github.com/DTVegaArchChapter/Architecture/tree/main/ddd/goal-management-system](https://github.com/DTVegaArchChapter/Architecture/tree/main/ddd/goal-management-system)
