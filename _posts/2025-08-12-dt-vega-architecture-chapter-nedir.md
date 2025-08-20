@@ -1,9 +1,12 @@
 ---
 layout: post
 title: "DT Vega Architecture Chapter Nedir?"
-date: 2025-08-12
+categories: [duyuru]
 tags: [duyuru, organization, architecture]
+lang: tr
+author: DTVegaArchitectureChapter
 excerpt: DT Vega Architecture Chapter olarak ne yapıyoruz, amaçlarımız ve nasıl katkı verebilirsiniz.
+date: 2025-08-12
 ---
 DT Vega Architecture Chapter olarak yazılım mimarisi, DevOps, oyun programlama, yapay zeka ve sistem tasarımı alanlarında öğrendiklerimizi pratik örnek depolarla paylaşıyoruz. Amacımız; deneyimleri dokümante etmek, tekrar edilebilir öğrenme materyalleri oluşturmak ve açık kaynak kültürüne katkı sağlamak.<!--more-->
 

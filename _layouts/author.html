@@ -2,29 +2,34 @@
 layout: default
 ---
 <article class="author">
-  <h1>{{ page.title }}</h1>
+  <h1>Yazar</h1>
 
-  {% if page.avatar %}
-    <p><img src="{{ page.avatar | relative_url }}" alt="{{ page.title }}" style="max-width:120px;border-radius:50%"></p>
-  {% endif %}
-
-  {% if page.bio %}<p>{{ page.bio }}</p>{% endif %}
-
-  {% if page.links %}
-    <ul class="author-links">
-      {% for link in page.links %}
-        <li><a href="{{ link.url }}" target="_blank" rel="me noopener noreferrer">{{ link.title }}</a></li>
-      {% endfor %}
-    </ul>
-  {% endif %}
+  <div class="author-card" style="display:flex;gap:16px;align-items:center;margin:16px 0;padding:16px;border:1px solid #e3e3e3;border-radius:12px;background:#fff;">
+    {% if page.avatar %}
+      <img src="{{ page.avatar | absolute_url }}" alt="{{ page.name | default: page.title }}" style="width:96px;height:96px;border-radius:50%;object-fit:cover;border:1px solid #ddd;" />
+    {% endif %}
+    <div>
+      <h2 style="margin:0 0 4px;">{{ page.name | default: page.title }}</h2>
+      <div style="color:#666;margin:0 0 8px;">{{ page.title }}</div>
+      {% if page.bio %}
+        <p style="margin:0;">{{ page.bio }}</p>
+      {% endif %}
+      {% if page.links %}
+        <p style="margin:8px 0 0;">
+          {% for link in page.links %}
+            <a href="{{ link.url }}" target="_blank" rel="me noopener noreferrer" style="margin-right:12px;">{{ link.title }}</a>
+          {% endfor %}
+        </p>
+      {% endif %}
+    </div>
+  </div>
 
   <h2>Yazıları</h2>
   <ul>
     {% assign posts = site.posts | where_exp: "post", "post.author == page.title" %}
     {% for post in posts %}
       <li>
-        <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-        <small>{{ post.date | date: "%Y-%m-%d" }}</small>
+        <small>{{ post.date | date: "%Y-%m-%d" }}</small> <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
       </li>
     {% endfor %}
     {% if posts == empty %}
