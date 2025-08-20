@@ -23,7 +23,7 @@ plugins:
   - jekyll-feed
 
 # SEO / sosyal
-author: "DT Vega Architecture Chapter"
+author: "DTVegaArchitectureChapter"
 logo: /assets/img/logo.png
 social:
   name: DT Vega Architecture Chapter

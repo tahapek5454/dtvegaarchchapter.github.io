@@ -4,6 +4,9 @@
     <h3 class="post-title"><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
     <div class="post-meta">
       <time datetime="{{ post.date | date_to_xmlschema }}" class="post-date">{{ post.date | date: "%Y-%m-%d" }}</time>
+      {% assign author_name = post.author | default: site.author %}
+      {% assign author_slug = author_name | slugify %}
+      <span class="post-author">Yazar: {% if author_name %}<a href="{{ '/authors/' | append: author_slug | append: '/' | relative_url }}">{{ author_name }}</a>{% else %}{{ post.author }}{% endif %}</span>
       {% if post.tags %}
       <ul class="post-tags" aria-label="Etiketler">
         {% for tag in post.tags %}
