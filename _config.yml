@@ -30,8 +30,11 @@ social:
   links:
     - https://github.com/DTVegaArchChapter
 
-# Koleksiyonlar ileride eklenebilir
-collections: {}
+# Koleksiyonlar
+collections:
+  authors:
+    output: true
+    permalink: /authors/:name/
 
 # Navigasyon (elle kullanılacak)
 nav:

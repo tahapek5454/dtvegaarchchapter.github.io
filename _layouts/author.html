@@ -1,0 +1,34 @@
+---
+layout: default
+---
+<article class="author">
+  <h1>{{ page.title }}</h1>
+
+  {% if page.avatar %}
+    <p><img src="{{ page.avatar | relative_url }}" alt="{{ page.title }}" style="max-width:120px;border-radius:50%"></p>
+  {% endif %}
+
+  {% if page.bio %}<p>{{ page.bio }}</p>{% endif %}
+
+  {% if page.links %}
+    <ul class="author-links">
+      {% for link in page.links %}
+        <li><a href="{{ link.url }}" target="_blank" rel="me noopener noreferrer">{{ link.title }}</a></li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  <h2>Yazıları</h2>
+  <ul>
+    {% assign posts = site.posts | where_exp: "post", "post.author == page.title" %}
+    {% for post in posts %}
+      <li>
+        <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+        <small>{{ post.date | date: "%Y-%m-%d" }}</small>
+      </li>
+    {% endfor %}
+    {% if posts == empty %}
+      <li><em>Bu yazar için henüz yazı yok.</em></li>
+    {% endif %}
+  </ul>
+</article>
