@@ -7,11 +7,11 @@ lang: tr
 author: QuickOrBeDead
 excerpt: Domain-Driven Design (DDD) nedir? Kısa bir giriş, avantaj/dezavantajlar ve Goal Management örnek uygulamamızla DDD’yi adım adım görün.
 date: 2025-08-19
-last_modified_at: 2025-08-19 00:00:00 +0300
+last_modified_at: 2025-08-23 00:00:00 +0300
 ---
 
 ## TL;DR
-- DDD; hizasızlık, belirsiz sınırlar, tutarlılık ihlalleri, kontrolsüz yan etkiler ve düşük test edilebilirliği hedef alır.
+- DDD; uyumsuzluk (iş-kod uyumsuzluğu), sınırların (modüller/süreçler arası) belli olmaması, tutarlılık (iş kurallarının tutarlılığı) ihlalleri, istenmeyen yan etkiler (bir değişikliğin başka bir yerde bozulmaya yol açması) ve düşük test edilebilirliği çözmeyi hedef alır.
 - Çözüm: Ubiquitous Language + Bounded Context + aggregate kapsülleme.
 - Nerede iyi: Karmaşık domain ve uzun yaşayan sistemler. Nerede değil: Basit CRUD.
 - Örnek: DT Vega Goal Management ile uçtan uca akış (Event Storming → Strategic → Tactical).
