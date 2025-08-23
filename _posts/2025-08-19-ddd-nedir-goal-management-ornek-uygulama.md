@@ -2,7 +2,7 @@
 layout: post
 title: "Domain-Driven Design (DDD) - Kısa Bir Giriş ve Goal Management Örnek Uygulaması"
 categories: [mimari, ddd]
-tags: [ddd, event storming, strategic design, tactical design, ubiquitous language]
+tags: [ddd, event storming, strategic design, tactical design, ubiquitous language, ddd örnek proje]
 lang: tr
 author: QuickOrBeDead
 excerpt: Domain-Driven Design (DDD) nedir? Kısa bir giriş, avantaj/dezavantajlar ve Goal Management örnek uygulamamızla DDD’yi adım adım görün.
@@ -142,7 +142,9 @@ Kodları incelemek için [tıklayın](https://github.com/DTVegaArchChapter/Archi
 </script>
 
 ## Sonuç
-DDD; karmaşık iş kurallarını sürdürülebilir biçimde modellemek için güçlü bir çerçeve sunar. Doğru yerde uygulandığında hem ekip hizalanmasını hem de yazılımın evrimini kolaylaştırır. Basit problemlerde ise fazladan karmaşıklık getirebilir. Örnek projede, Event Storming'den stratejik ve taktik tasarıma kadar uçtan uca bir akış gösterilmektedir.
+DDD; karmaşık iş kurallarını sürdürülebilir biçimde modellemek için güçlü bir çerçeve sunar. Doğru yerde uygulandığında hem iş birimi ile teknik ekip hizalanmasını hem de yazılımın evrimini kolaylaştırır. Basit problemlerde ise fazladan karmaşıklık getirebilir.
+
+Örnek projede, Event Storming'den stratejik ve taktik tasarıma kadar uçtan uca bir akış gösterilmektedir.
 
 ## Kaynaklar
 - Eric Evans - Domain-Driven Design (kitap)
