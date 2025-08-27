@@ -1,3 +1,7 @@
+---
+layout: nil
+sitemap: false
+---
 User-Agent: *
 Allow: /
-Sitemap: {{ site.url }}{{ site.baseurl }}/sitemap.xml
+Sitemap: {{ '/sitemap.xml' | absolute_url }}

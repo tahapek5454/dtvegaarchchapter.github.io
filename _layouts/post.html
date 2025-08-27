@@ -6,3 +6,39 @@ layout: default
   <p class="post-meta"><small>{% assign author_name = page.author | default: site.author %}{% assign author_slug = author_name | slugify %}{% if author_name %}<a href="{{ '/authors/' | append: author_slug | append: '/' | relative_url }}">{{ author_name }}</a> • {% endif %}{{ page.date | date: "%Y-%m-%d" }}{% if page.tags %} • {{ page.tags | join: ", " }}{% endif %}</small></p>
   {{ content }}
 </article>
+
+<section class="related-posts" aria-labelledby="related-posts-title">
+  <h2 id="related-posts-title">İlgili Yazılar</h2>
+  <ul class="related-list">
+    {% assign related_count = 0 %}
+    {% for p in site.posts %}
+      {% if p.url != page.url %}
+        {% assign intersect = false %}
+        {% if page.tags and p.tags %}
+          {% for t in p.tags %}
+            {% if page.tags contains t %}
+              {% assign intersect = true %}
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+        {% if intersect != true and page.categories and p.categories %}
+          {% for c in p.categories %}
+            {% if page.categories contains c %}
+              {% assign intersect = true %}
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+        {% if intersect and related_count < 4 %}
+          <li>
+            <a href="{{ p.url | relative_url }}">{{ p.title }}</a>
+            <small> — {{ p.date | date: "%Y-%m-%d" }}</small>
+          </li>
+          {% assign related_count = related_count | plus: 1 %}
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+    {% if related_count == 0 %}
+      <li><em>Benzer yazı bulunamadı.</em></li>
+    {% endif %}
+  </ul>
+</section>
