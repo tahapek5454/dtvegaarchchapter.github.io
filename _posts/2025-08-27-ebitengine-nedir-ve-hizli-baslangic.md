@@ -7,7 +7,7 @@ lang: tr
 author: QuickOrBeDead
 excerpt: Ebitengine (Ebiten) ile 2D oyun geliştirmeye giriş; nedir, nerede kullanılır, kurulum, game loop, görsel çizmek, desteklenen platformlar, yardımcı kütüphaneler ve kaynaklar.
 date: 2025-08-27
-last_modified_at: 2025-08-27 10:18:00 +0300
+last_modified_at: 2025-08-27 14:30:00 +0300
 ---
 
 ## TL;DR
@@ -55,6 +55,8 @@ Toplulukta pek çok game jam projesi ve bağımsız oyun Ebitengine ile gelişti
 - Wordle — [2d-games/wordle/golang](https://github.com/DTVegaArchChapter/GameProgramming/tree/main/2d-games/wordle/golang)
 - Blocks — [2d-games/blocks/golang](https://github.com/DTVegaArchChapter/GameProgramming/tree/main/2d-games/blocks/golang)
 - Jigsaw Puzzle — [2d-games/jigsaw-puzzle/golang](https://github.com/DTVegaArchChapter/GameProgramming/tree/main/2d-games/jigsaw-puzzle/golang)
+
+İlgili içerikler: [Projeler](/projeler) • [Blog](/blog)
 
 ## Kurulum (Nasıl Yüklenir?)
 
@@ -227,12 +229,21 @@ Topluluk listeleri ve örnekler:
 - Awesome Ebiten/Ebitengine: [sedyh/awesome-ebiten](https://github.com/sedyh/awesome-ebiten)
 - Örnekler: [hajimehoshi/ebiten/examples](https://github.com/hajimehoshi/ebiten/tree/main/examples)
 
+## SSS (Ebitengine Hakkında)
+
+- Ebitengine nedir? Go ile 2D oyun ve etkileşimli uygulamalar geliştirmek için basit API’li, çoklu platform destekli bir oyun motorudur.
+- Hangi platformları destekler? Windows, macOS, Linux, WebAssembly (WASM), Android ve iOS.
+- Kurulum için ne gerekir? Güncel Go sürümü yeterli; `go get github.com/hajimehoshi/ebiten/v2` ile eklenir.
+- Web’e çıkabilir miyim? Evet, WASM desteğiyle tarayıcıda çalıştırabilirsiniz.
+- Oyun döngüsü nasıl çalışır? `Update`, `Draw`, `Layout` metodlarından oluşan arayüzle yönetilir.
+
+
 ## Kaynaklar
 
 - Resmi site: [ebitengine.org](https://ebitengine.org/)
 - GitHub repo: [hajimehoshi/ebiten](https://github.com/hajimehoshi/ebiten)
 - Dokümantasyon: [Ebitengine Documents](https://ebitengine.org/en/documents/)
-- Bizim oyun örnekler: [2D Games - Golang](https://github.com/DTVegaArchChapter/GameProgramming/tree/main/2d-games)
+- Bizim oyun örnekleri: [2D Games - Golang](https://github.com/DTVegaArchChapter/GameProgramming/tree/main/2d-games)
 
 ---
 
