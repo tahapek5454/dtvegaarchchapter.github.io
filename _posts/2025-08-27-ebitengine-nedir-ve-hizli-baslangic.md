@@ -179,7 +179,7 @@ func (g *Game) Layout(outsideWidth, outsideHeight int) (int, int) { return 480, 
 func main() {
     game := &Game{}
     
-    ebiten.SetWindowSize(480*2, 320*2)
+    ebiten.SetWindowSize(960, 640)
     ebiten.SetWindowTitle("Draw Image Örneği")
     
     if err := ebiten.RunGame(game); err != nil {
