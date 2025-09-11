@@ -76,6 +76,8 @@ Uygulama Prensipleri:
 5. Application/UseCase seviyesi bunu yakalar; gerekirse retry veya kullanıcıya mesaj.
 
 ### Örnek Entity (Basitleştirilmiş)
+GoalSet Aggregate Root'u için RowVersion kolonu ile optimistic concurrency kontrolü ve basit bir invariant (yüzde toplamı = 100) gösterimi.
+
 ```csharp
 public class GoalSet : EntityBase, IAggregateRoot
 {
@@ -101,6 +103,7 @@ public class GoalSet : EntityBase, IAggregateRoot
 ```
 
 #### Entity Ef Core Konfigurasyonu
+RowVersion alanını EF Core'a concurrency token olarak tanıtır; böylece UPDATE cümlesine WHERE RowVersion = @original eklenir ve çakışmada etkilenen satır 0 olur.
 
 ```csharp
 internal sealed class GoalSetEvaluationConfiguration : IEntityTypeConfiguration<GoalSet>
@@ -117,7 +120,9 @@ internal sealed class GoalSetEvaluationConfiguration : IEntityTypeConfiguration<
 }
 ```
 
-### Repository Katmanı ConcurrencyException Çevirisi
+### Repository ConcurrencyException Çevirisi
+Altyapıdaki `DbUpdateConcurrencyException` yakalanıp domain'e anlamlı bir `ConcurrencyException` olarak yeniden fırlatılır; application katmanı bu sayede retry kararını doğru verir.
+
 ```csharp
 public class EfRepository<T>(AppDbContext dbContext) : RepositoryBase<T>(dbContext), IReadRepository<T>, IRepository<T> where T : class, IAggregateRoot
 {
@@ -137,7 +142,7 @@ public class EfRepository<T>(AppDbContext dbContext) : RepositoryBase<T>(dbConte
 ```
 
 ### Use Case (Application) Katmanı: Retry + Invariant Ayrımı
-Aşağıdaki handler, MIT lisanslı örnek repodaki `UpdateGoalCommandHandler` kodundan uyarlanmıştır. `Polly` ile yalnızca gerçekten concurrency kaynaklı hatalarda (domain kuralı değil) exponential backoff retry uygulanır.
+`Polly` ile yalnızca gerçekten concurrency kaynaklı hatalarda (domain kuralı değil) exponential backoff retry uygulanır.
 
 ```csharp
 internal sealed class UpdateGoalCommandHandler(IRepository<GoalSet> goalSetRepository) : ICommandHandler<UpdateGoalCommand, Result<(int GoalSetId, int GoalId)>>
@@ -216,6 +221,8 @@ Polly Opsiyonları:
 - ConcurrencyException sayısı / toplam update oranı.
 - Ortalama retry attempt sayısı.
 - Jitter devredeyken ve değilken DB CPU / lock wait karşılaştırması.
+
+Bu metrikleri log + metrics (Prometheus / OpenTelemetry) ile zaman serisi halinde toplayıp threshold aşımlarında alarm üretebilirsiniz. Çünkü yükselen oran veya artan ortalama retry denemesi yeniden tasarım ihtiyacını gösterir.
 
 ## Kullanıcı Deneyimi (UX) ve Versiyonlama
 İyi pratikler:
