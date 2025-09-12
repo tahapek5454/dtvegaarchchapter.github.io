@@ -5,8 +5,8 @@ categories: [mimari, ddd]
 tags: [ddd, aggregate, ef core, concurrency, optimistic locking, polly]
 lang: tr
 author: QuickOrBeDead
-excerpt: DDD Aggregate'lerde neden concurrency problemleri daha sık görülür, domain invariant'ları nasıl bozar ve EF Core ile optimistic concurrency (RowVersion + retry) nasıl yönetilir?
-date: 2025-09-10
+excerpt: DDD Aggregate'lerde concurrency riskleri, invariant koruma, EF Core RowVersion ile optimistic concurrency + Polly retry, ölçüm & gözlemlenebilirlik pratikleri.
+date: 2025-09-12
 ---
 
 ## TL;DR
@@ -14,13 +14,15 @@ date: 2025-09-10
 - Concurrency çakışmaları; kurallar (ör: yüzde toplamı 100 olmalı, statü geçiş sırası, min < mid < max) sağlanıyormuş gibi görünse de son yazan kazanır (lost update) problemiyle iş kuralları bozulabilir.
 - Çözüm: Optimistic concurrency (RowVersion ya da concurrency stamp) + domain seviyesinde ConcurrencyException + üst katmanda kontrollü retry (örn. Polly) + kullanıcıya anlamlı geri bildirim ("Bu hedef az önce değişti, tekrar dene") + idempotent davranış.
 
-> Concurrency problemleri Aggregate'in sorumlu olduğu "iş kurallarını" (invariants) sessizce bozabilecek en tehlikeli senaryolardan biridir; erken tespit ve kontrollü retry ile bu risk minimize edilir.
+DDD kavramlarına yabancıysan önce şu yazıya göz atmanı öneririm: [DDD Nedir? Goal Management Örnek Uygulama](/2025/08/19/ddd-nedir-goal-management-ornek-uygulama/).
+
+> Concurrency problemleri Aggregate'in sorumlu olduğu iş kurallarını (invariants) sessizce bozabilecek en tehlikeli senaryolardan biridir; erken tespit ve kontrollü retry ile bu risk minimize edilir.
 
 ## Neden Aggregate Kullanımı Concurrency Riskini Yükseltir?
 Aggregate; dış dünyaya tek bir tutarlılık kapısı sunar. 
 
 Bir güncelleme genellikle:
-1. Aggregate Root ve Aggrate Root'a bağlı bütün child entity koleksiyonuyla birlikte veri tabanından çeker.
+1. Aggregate Root ve Aggregate Root'a bağlı bütün child entity koleksiyonuyla birlikte veri tabanından çeker.
 2. İş kurallarını uygulayarak domain metodunu çağırır (ör: `goalSet.UpdateGoal(...)`).
 3. Tek seferde veri tabanında günceller.
 
@@ -39,12 +41,12 @@ Bu model; "bir satırı güncelle ve çık" (narrow update) yerine birden fazla 
 
 Optimistic concurrency ile B'nin kaydı reddedilir (RowVersion uyuşmaz) ve böylece invariant'ın bozulması engellenir. Kullanıcıya yeniden denemesi için güncel veri gösterilir. 
 
-Alternatif olarak pessimistic concurrency (ör: SELECT ... FOR UPDATE / satır kilitleme) kullanılırsa ikinci kullanıcının işlemi ilk transaction bitene kadar bloklanır. Yoğun trafikte bekleme süreleri artar, throughput düşer ve potansiyel deadlock riskleri doğar.
+Alternatif olarak pessimistic concurrency (ör: `SELECT ... FROM ... WITH (ROWLOCK, XLOCK) WHERE Id = @Id` / satır locklama) kullanılırsa ikinci kullanıcının işlemi ilk transaction bitene kadar bloklanır. Yoğun trafikte bekleme süreleri artar, throughput düşer ve potansiyel deadlock riskleri doğar.
 
 ## Optimistic Concurrency Nedir?
-Optimistic Concurrency; aynı veriyi nadiren çakışacak şekilde güncellediğimizi varsayarak (conflict olasılığı düşük varsayımı) kilit (lock) tutmadan ilerleyip, güncelleme anında bir versiyon karşılaştırmasıyla (ör: RowVersion, ETag, ExpectedVersion) çakışmayı tespit eden yaklaşımdır.
+Optimistic Concurrency; aynı veriyi nadiren çakışacak şekilde güncellediğimizi varsayarak (conflict olasılığı düşük varsayımı) lock kullanmadan ilerleyip, güncelleme anında bir versiyon karşılaştırmasıyla (ör: RowVersion, ETag, ExpectedVersion) çakışmayı tespit eden yaklaşımdır.
 
-Karşıt yaklaşım olan Pessimistic Locking'de ise güncellemeden önce satır(lar) kilitlenir; bu da yüksek bekleme (blocking), deadlock ve throughput düşüşü riskini artırır. DDD aggregate senaryolarında çoğu güncelleme kısa ve atomiktir; bu yüzden optimistic model daha yüksek paralellik (concurrency) ve daha iyi ölçeklenme sunar.
+Karşıt yaklaşım olan Pessimistic Locking'de ise güncellemeden önce satır(lar) locklanır; bu da yüksek bekleme (blocking), deadlock ve throughput düşüşü riskini artırır. DDD Aggregate senaryolarında çoğu güncelleme kısa ve atomiktir; bu yüzden optimistic model daha yüksek paralellik (concurrency) ve daha iyi ölçeklenme sunar.
 
 Avantajlar:
 - Yüksek okuma-yazma paralelliği, lock yok.
@@ -61,10 +63,10 @@ Ne Zaman Tercih Etmeli?
 - Kısa süreli transaction'lar.
 
 Uygulama Prensipleri:
-1. Versiyon Kolonu: RowVersion (timestamp / byte[])
-2. Aggregate Root Okuma: Komut başında versiyon belleğe alınır.
-3. İş Kuralı Uygulama: Domain metodları invariant'ları kontrol eder.
-4. Persist: UPDATE ... WHERE Id = @id AND RowVersion = @orijinal.
+1. Versiyon kolonu: RowVersion (timestamp / byte[])
+2. Aggregate Root okuma: Komut başında versiyon belleğe alınır.
+3. İş kuralı uygulama: Domain metodları invariant'ları kontrol eder.
+4. Veri tabanına kaydetme: UPDATE ... WHERE Id = @id AND RowVersion = @original.
 5. Etkilenen satır 0 → ConcurrencyException → Retry veya kullanıcıya mesaj.
 6. Başarılıysa yeni RowVersion istemciye (veya response body event'ine) eklenebilir.
 
@@ -102,7 +104,7 @@ public class GoalSet : EntityBase, IAggregateRoot
 }
 ```
 
-#### Entity Ef Core Konfigurasyonu
+#### Entity EF Core Konfigürasyonu
 RowVersion alanını EF Core'a concurrency token olarak tanıtır; böylece UPDATE cümlesine WHERE RowVersion = @original eklenir ve çakışmada etkilenen satır 0 olur.
 
 ```csharp
@@ -121,7 +123,7 @@ internal sealed class GoalSetEvaluationConfiguration : IEntityTypeConfiguration<
 ```
 
 ### Repository ConcurrencyException Çevirisi
-Altyapıdaki `DbUpdateConcurrencyException` yakalanıp domain'e anlamlı bir `ConcurrencyException` olarak yeniden fırlatılır; application katmanı bu sayede retry kararını doğru verir.
+Aşağıdaki repository, altyapıda oluşan `DbUpdateConcurrencyException` istisnasını domain katmanına anlamlı bir `ConcurrencyException` olarak çevirir.
 
 ```csharp
 public class EfRepository<T>(AppDbContext dbContext) : RepositoryBase<T>(dbContext), IReadRepository<T>, IRepository<T> where T : class, IAggregateRoot
@@ -142,7 +144,7 @@ public class EfRepository<T>(AppDbContext dbContext) : RepositoryBase<T>(dbConte
 ```
 
 ### Use Case (Application) Katmanı: Retry + Invariant Ayrımı
-`Polly` ile yalnızca gerçekten concurrency kaynaklı hatalarda (domain kuralı değil) exponential backoff retry uygulanır.
+`Polly` ile yalnızca gerçekten concurrency kaynaklı hatalarda (domain kuralı değil) exponential backoff + jitter retry uygulanır.
 
 ```csharp
 internal sealed class UpdateGoalCommandHandler(IRepository<GoalSet> goalSetRepository) : ICommandHandler<UpdateGoalCommand, Result<(int GoalSetId, int GoalId)>>
@@ -176,7 +178,7 @@ internal sealed class UpdateGoalCommandHandler(IRepository<GoalSet> goalSetRepos
         if (!updateGoalResult.IsSuccess)
         {
           // Domain kuralı (invariant) ihlali: retry anlamsız
-          return updateGoalResult.ToResult();
+            return updateGoalResult.ToResult();
         }
 
         await goalSetRepository.UpdateAsync(goalSet, token).ConfigureAwait(false);
@@ -195,7 +197,7 @@ internal sealed class UpdateGoalCommandHandler(IRepository<GoalSet> goalSetRepos
 - Anlamlı: Sadece ConcurrencyException alındığında (RowVersion mismatch). Retry ile çoğunlukla ikinci denemede success alınır.
 - Anlamsız: İş kuralı ihlali (invariant bozuk), validasyon hatası, yetki hatası. Bunlar deterministiktir; tekrar denenmekle değişmez.
 
-### Neden Jitter Gerekli?
+## Neden Jitter Gerekli?
 Exponential backoff tek başına yeterli değildir; aynı anda çakışma yaşayan birçok istek aynı deterministik gecikme süreleriyle (50ms, 100ms, 200ms, ...) tekrar denediğinde "thundering herd" oluşur. Jitter (rastgele ufak sapma) ekleyerek retry çağırımlarını zamana yayarız.
 
 Faydalar:
@@ -204,37 +206,115 @@ Faydalar:
 - Kuyruk Boşalması: Downstream servis geçici yavaşsa jitter, kuyruktaki retry'ların tek blok halinde yeniden çökmesini engeller.
 - Adalet (Fairness): Farklı isteklerin başarı şansını dengeleyerek starvation riskini azaltır.
 
-Yanlış Uygulama Örneği:
-- Sabit gecikme (fixed delay) + no jitter → çakışmalar fazla.
+Yanlış Uygulama Örnekleri:
+- Sabit gecikme (fixed delay) + jitter yok → çakışmalar artar.
 - Tüm retry'lara geniş aralıkta (örn. 0–Delay*3) aşırı jitter → Ortalama gecikme gereksiz artar.
 
 Öneri:
 - Exponential backoff: baseDelay * 2^attempt.
-- Jitter: Örneğin "Full Jitter" (AWS önerisi) → delay = Random(0, base * 2^attempt).
+- Jitter: "Full Jitter" → delay = Random(0, base * 2^attempt).
 - Üst sınır (max cap) koy: Özellikle UI isteklerinde 1–2 saniye üstü total bekleme kullanıcı deneyimini bozar.
 
+Basit örnek (base 50ms):
+- Attempt 0 → 0–50 ms arası (ortalama ~25 ms)
+- Attempt 1 → 0–100 ms arası (ortalama ~50 ms)
+- Attempt 2 → 0–200 ms arası (ortalama ~100 ms)
+
 Polly Opsiyonları:
-- `UseJitter = true` varsayılan (Polly V8 Resilience pipeline) küçük, kontrollü jitter uygular.
+- `UseJitter = true` (Polly V8) küçük, kontrollü jitter uygular.
 - Gelişmiş senaryoda `AddRetry(new RetryStrategyOptions { DelayGenerator = ... })` ile custom jitter.
 
-Ölçüm:
+## Ölçüm ve Gözlemlenebilirlik
+İzlenmesi önerilen metrikler:
 - ConcurrencyException sayısı / toplam update oranı.
 - Ortalama retry attempt sayısı.
-- Jitter devredeyken ve değilken DB CPU / lock wait karşılaştırması.
+- Jitter devredeyken ve devre dışıyken DB CPU / lock wait / deadlock sayıları.
+- P95/P99 işlem süresi (retry etkisi var mı?).
 
-Bu metrikleri log + metrics (Prometheus / OpenTelemetry) ile zaman serisi halinde toplayıp threshold aşımlarında alarm üretebilirsiniz. Çünkü yükselen oran veya artan ortalama retry denemesi yeniden tasarım ihtiyacını gösterir.
+Toplama Yöntemi:
+- Application katmanında RetryPipeline içine retry attempt counter/log.
+- Prometheus/OpenTelemetry ile zaman serisi + uyarı eşikleri (örn. ConcurrencyException oranı > %5 ise alert).
+- Log korelasyonu için traceId + aggregateId + originalRowVersion bilgisi.
+
+Yorumlama:
+- Oran sürekli yükseliyorsa: Daha küçük aggregate sınırları, komutların parçalanması veya pessimistic yaklaşım değerlendirmesi.
+- Retry attempt ortalaması 1.5+ ise: UI otomatik refresh / merge akışı ekleme zamanı gelmiş olabilir.
 
 ## Kullanıcı Deneyimi (UX) ve Versiyonlama
 İyi pratikler:
-- Concurrency sonucu hata mesajında kaybın sebebini açıkla ("bu kayıt güncellendi").
-- İstersen: Değişiklik diff'ini göster (eski vs yeni değerler) ve merge akışı tasarla.
+- Concurrency sonucu hata mesajında kaybın sebebini açıkla ("bu kayıt az önce başka kullanıcı tarafından güncellendi").
+- Gerekirse değişiklik diff'ini göster (eski vs yeni değerler) ve merge akışı tasarla.
+- Otomatik yeniden yükleme (silent refresh) yaparken kullanıcı odak kaybı yaratmamaya dikkat et.
 
 ## Özet Öneriler
 - Her aggregate için optimistic concurrency token ekle (ör: RowVersion).
 - Infrastructure: EF Core `DbUpdateConcurrencyException` -> domain `ConcurrencyException` dönüştür.
 - Application: ConcurrencyException için limitli, jitter'lı exponential retry (Polly) uygula.
 - Domain metodları invariant ihlallerini bildir; retry etme.
-- İzleme (Observability): ConcurrencyException metriklerini (count, retry attempts) ölç.
+- İzleme (Observability): ConcurrencyException metriklerini (count, retry attempts, oran) ölç ve eşik aşımlarında alarm kur.
+
+## Sık Sorulan Sorular (FAQ)
+**Optimistic ve Pessimistic concurrency farkı nedir?** Optimistic model lock kullanmaz, çakışmayı versiyon uyuşmazlığı ile sonradan yakalar; Pessimistic model güncellenecek kayıtları baştan locklayarak bekleme ve potansiyel deadlocklar yaratır.
+
+**EF Core RowVersion nasıl çalışır?** UPDATE cümlesinin WHERE kısmına orijinal RowVersion eklenir. Etkilenen satır 0 ise concurrency çakışması kabul edilip `DbUpdateConcurrencyException` fırlatılır.
+
+**Polly ile retry ne zaman yapılmalı?** Yalnızca geçici (transient) çakışmalarda: `ConcurrencyException`. Domain invariant veya validasyon hatasında retry zaman kaybıdır.
+
+**Domain invariant ihlali neden retry edilmez?** Çünkü deterministik; aynı giriş yeniden işlendiğinde aynı kural bozulacaktır.
+
+**Hangi metrikler kritik?** ConcurrencyException oranı, ortalama retry attempt, P95/P99 süreleri, deadlock veya lock wait süreleri.
+
+## Devam / Uygulama Adımı
+Repo'yu klonlayıp ([Repo](https://github.com/DTVegaArchChapter/Architecture/tree/main/ddd/goal-management-system), [Goal Management örnek uygulaması ile ilgili blog yazısı](/2025/08/19/ddd-nedir-goal-management-ornek-uygulama/)) aynı GoalSet üzerinde iki paralel update senaryosu çalıştırarak RowVersion çakışmasını tetikle ve retry metriklerini gözlemle. Dilersen jitter'i kapatarak (UseJitter=false) farkı ölç.
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Optimistic concurrency nedir?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Optimistic concurrency, veriyi güncellemeden önce locklamak yerine RowVersion gibi bir versiyon alanı ile çakışmayı güncelleme anında tespit eden yaklaşımdır. Çakışma yoksa günceller, varsa güncelleme reddedilir."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Pessimistic concurrency farkı nedir?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Pessimistic concurrency güncelleme öncesi satırı locklar; bu bloklanma, bekleme süresi ve deadlock riskini artırabilir. Optimistic model lock kullanmadığı için paralellik daha yüksektir ancak çakışma sonrası retry gerekir."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "EF Core RowVersion nasıl çalışır?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Entity'e eklenen RowVersion alanı concurrency token olarak işaretlenir. EF Core UPDATE ... WHERE RowVersion = @original üretir. Etkilenen satır 0 ise DbUpdateConcurrencyException fırlatır."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Polly ile retry ne zaman uygulanmalı?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sadece geçici concurrency çakışmalarında (ConcurrencyException). Domain invariant ihlali, validasyon veya yetki hatalarında retry anlamsızdır."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Hangi metrikleri izlemeliyim?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "ConcurrencyException oranı, ortalama retry attempt, P95/P99 süreleri, lock wait ve deadlock sayıları kritik metriklerdir. Yükselen trend tasarım veya aggregate sınırlarını yeniden gözden geçirmeyi gerektirir."
+      }
+    }
+  ]
+}
+</script>
 
 ## Kaynaklar
 - DDD Goal Management örnek repo (kod parçaları uyarlanmıştır): https://github.com/DTVegaArchChapter/Architecture/tree/main/ddd/goal-management-system
