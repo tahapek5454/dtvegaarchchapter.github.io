@@ -78,7 +78,7 @@ Uygulama Prensipleri:
 4. Infrastructure katmanı domain'e özgü bir `ConcurrencyException` oluşturup fırlatır.
 5. Application/UseCase seviyesi bunu yakalar; gerekirse retry veya kullanıcıya mesaj.
 
-### Örnek Entity (Basitleştirilmiş)
+### Örnek Aggregate Root (Basitleştirilmiş)
 GoalSet Aggregate Root'u için RowVersion kolonu ile optimistic concurrency kontrolü ve basit bir invariant (yüzde toplamı = 100) gösterimi.
 
 ```csharp
@@ -320,5 +320,5 @@ Repo'yu klonlayıp ([Repo](https://github.com/DTVegaArchChapter/Architecture/tre
 ## Kaynaklar
 - DDD Goal Management örnek repo (kod parçaları uyarlanmıştır): [https://github.com/DTVegaArchChapter/Architecture/tree/main/ddd/goal-management-system](https://github.com/DTVegaArchChapter/Architecture/tree/main/ddd/goal-management-system)
 - Microsoft Docs – EF Core Concurrency: [https://learn.microsoft.com/ef/core/saving/concurrency](https://learn.microsoft.com/ef/core/saving/concurrency)
-- Polly: [https://www.thepollyproject.org/](https://www.thepollyproject.org/)
+- Polly: [https://github.com/App-vNext/Polly](https://github.com/App-vNext/Polly)
 - Eric Evans – Domain-Driven Design (Aggregate konsepti)
