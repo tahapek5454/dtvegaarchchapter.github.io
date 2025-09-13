@@ -7,14 +7,15 @@ lang: tr
 author: QuickOrBeDead
 excerpt: DDD Aggregate'lerde concurrency riskleri, invariant koruma, EF Core RowVersion ile optimistic concurrency + Polly retry, ölçüm & gözlemlenebilirlik pratikleri.
 date: 2025-09-12
+last_modified_at: 2025-09-13 12:30:00 +0300
 ---
 
 ## TL;DR
-- Aggregate; bir grup entity/value object üzerindeki iş kurallarını (domain invariants) tek transaction içinde tutarlı kılar. Bu yüzden güncellemeler çoğunlukla geniş kapsamlı olur ve aynı Aggregate'a eşzamanlı erişimler çakışma riskini artırır.
+- Aggregate; bir grup entity/value object üzerindeki iş kurallarını (domain invariants) tek transaction içinde tutarlı kılar. Bu yüzden güncellemeler çoğunlukla geniş kapsamlı olur ve aynı Aggregate'e eşzamanlı erişimler çakışma riskini artırır.
 - Concurrency çakışmaları; kurallar (ör: yüzde toplamı 100 olmalı, statü geçiş sırası, min < mid < max) sağlanıyormuş gibi görünse de son yazan kazanır (lost update) problemiyle iş kuralları bozulabilir.
 - Çözüm: Optimistic concurrency (RowVersion ya da concurrency stamp) + domain seviyesinde ConcurrencyException + üst katmanda kontrollü retry (örn. Polly) + kullanıcıya anlamlı geri bildirim ("Bu hedef az önce değişti, tekrar dene") + idempotent davranış.
 
-DDD kavramlarına yabancıysan önce şu yazıya göz atmanı öneririm: [DDD Nedir? Goal Management Örnek Uygulama](/2025/08/19/ddd-nedir-goal-management-ornek-uygulama/).
+DDD kavramlarına yabancıysan önce şu yazıya göz atmanı öneririm: [DDD Nedir? Goal Management Örnek Uygulama](/mimari/ddd/2025/08/19/ddd-nedir-goal-management-ornek-uygulama.html).
 
 > Concurrency problemleri Aggregate'in sorumlu olduğu iş kurallarını (invariants) sessizce bozabilecek en tehlikeli senaryolardan biridir; erken tespit ve kontrollü retry ile bu risk minimize edilir.
 
@@ -50,11 +51,11 @@ Karşıt yaklaşım olan Pessimistic Locking'de ise güncellemeden önce satır(
 
 Avantajlar:
 - Yüksek okuma-yazma paralelliği, lock yok.
-- Bulut ve yatay ölçekli (stateless) API pod'larında iyi çalışır.
+- Yatay ölçekli (stateless) API'lerde iyi çalışır.
 
 Dezavantaj / Dikkat:
 - Çakışma oranı yüksekse sürekli retry maliyeti artar (pessimistic daha iyi olabilir).
-- Kullanıcı deneyimi tasarımı gerekir ("kayıt değişti" mesajı, otomatik yeniden yükleme, merge akışı).
+- Kullanıcı deneyimi tasarımı gerekir ("kayıt başka bir kullanıcı tarafından değiştirildi" mesajı, otomatik yeniden yükleme, merge akışı).
 - Retry stratejisi yoksa kayıp güncellemeler kullanıcıya hata olarak döner (kaybın sebebi anlaşılmayabilir).
 
 Ne Zaman Tercih Etmeli?
@@ -265,7 +266,7 @@ Yorumlama:
 **Hangi metrikler kritik?** ConcurrencyException oranı, ortalama retry attempt, P95/P99 süreleri, deadlock veya lock wait süreleri.
 
 ## Devam / Uygulama Adımı
-Repo'yu klonlayıp ([Repo](https://github.com/DTVegaArchChapter/Architecture/tree/main/ddd/goal-management-system), [Goal Management örnek uygulaması ile ilgili blog yazısı](/2025/08/19/ddd-nedir-goal-management-ornek-uygulama/)) aynı GoalSet üzerinde iki paralel update senaryosu çalıştırarak RowVersion çakışmasını tetikle ve retry metriklerini gözlemle. Dilersen jitter'i kapatarak (UseJitter=false) farkı ölç.
+Repo'yu klonlayıp ([Repo](https://github.com/DTVegaArchChapter/Architecture/tree/main/ddd/goal-management-system), [Goal Management örnek uygulaması ile ilgili blog yazısı](/mimari/ddd/2025/08/19/ddd-nedir-goal-management-ornek-uygulama.html)) aynı GoalSet üzerinde iki paralel update senaryosu çalıştırarak RowVersion çakışmasını tetikle ve retry metriklerini gözlemle. Dilersen jitter'i kapatarak (UseJitter=false) farkı ölçebilirsin.
 
 <script type="application/ld+json">
 {
@@ -317,7 +318,7 @@ Repo'yu klonlayıp ([Repo](https://github.com/DTVegaArchChapter/Architecture/tre
 </script>
 
 ## Kaynaklar
-- DDD Goal Management örnek repo (kod parçaları uyarlanmıştır): https://github.com/DTVegaArchChapter/Architecture/tree/main/ddd/goal-management-system
-- Microsoft Docs – EF Core Concurrency: https://learn.microsoft.com/ef/core/saving/concurrency
-- Polly: https://www.thepollyproject.org/
+- DDD Goal Management örnek repo (kod parçaları uyarlanmıştır): [https://github.com/DTVegaArchChapter/Architecture/tree/main/ddd/goal-management-system](https://github.com/DTVegaArchChapter/Architecture/tree/main/ddd/goal-management-system)
+- Microsoft Docs – EF Core Concurrency: [https://learn.microsoft.com/ef/core/saving/concurrency](https://learn.microsoft.com/ef/core/saving/concurrency)
+- Polly: [https://www.thepollyproject.org/](https://www.thepollyproject.org/)
 - Eric Evans – Domain-Driven Design (Aggregate konsepti)
