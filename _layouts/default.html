@@ -1,6 +1,7 @@
 ---
 # Custom default layout overriding theme to inject nav
 ---
+{%- seo title=false -%}
 <!DOCTYPE html>
 <html lang="{{ site.lang | default: 'tr' }}">
   <head>
@@ -22,7 +23,7 @@
           {% if site.logo %}
             <div class="site-logo"><img src="{{ site.logo }}" alt="{{ site.title }} logo" width="80" height="80" loading="lazy"></div>
           {% endif %}
-          <h1 id="project_title">{{ site.title | default: site.github.repository_name }}</h1>
+          <h2 id="project_title">{{ site.title | default: site.github.repository_name }}</h2>
         </div>
         <h2 id="project_tagline">{{ site.description | default: site.github.project_tagline }}</h2>
         {% include nav.html %}
