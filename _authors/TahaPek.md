@@ -1,6 +1,6 @@
 ---
 layout: author
-title: tahapek5454
+title: TahaPek
 name: Taha Pek
 bio: Software Developer at Doğuş Teknoloji
 avatar: https://avatars.githubusercontent.com/u/73340953?s=400&u=fc771a61e46413f474b82bd3f7e6eb1108af12c7&v=4
